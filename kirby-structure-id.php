@@ -42,20 +42,17 @@ class StructureID {
   public function addHashToStructure($page) {
 
     $callback = function(&$value, $key, $hashID) {
-      if($value == '' && $key == $hashID) {
-          $value = $this->generateHash();
+      if(isset($value[$hashID]) && $value[$hashID] == '') {
+        $value[$hashID] = $this->generateHash();
       }
     };
 
     $entries = $page->{$this->fieldName}()->yaml();
-    $data = [];
-    foreach($entries as $entry) {
-
-      array_walk($entry, $callback, $this->hashID);
-      $data[] = $entry;
+    if(is_array($entries)) {
+      array_walk($entries, $callback, $this->hashID);
     }
 
-    $data = yaml::encode($data);
+    $data = yaml::encode($entries);
 
     try {
       $page->update(
