@@ -71,7 +71,9 @@ The name of the structure field.
 
 The name of the hashID field within the structure field
 
+## Limitations
 
+This plugin only works with a single structure field name. This means, you cannot use it with multiple structure fields per page, or with differently named structure fields on multiple pages. It will, however, work on all pages that use the same structure field name.
 
 ## Credits
 
