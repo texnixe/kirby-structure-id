@@ -3,7 +3,7 @@
  *
  * Structure ID Plugin for Kirby 2
  *
- * @version   1.0.0
+ * @version   1.0.1
  * @author    Sonja Broda <https://www.texniq.de>
  * @copyright Sonja Broda <https://www.texniq.de>
  * @link      https://github.com/texnixe/kirby-structure-id
