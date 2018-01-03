@@ -35,6 +35,26 @@ Run these commands to update the plugin:
     $ git commit -am "Update submodules"
     $ git submodule update --init --recursive
 
+## Usage
+
+Add a HashID field to your structure field and make it readonly:
+
+```php
+structurefield:
+  label: My awesome structure field
+  type: structure
+  fields:
+    hash_id:
+      label: ID
+      type: text
+      readonly: true
+    somefield:
+      label: Something
+      type: textarea
+```
+
+You can set the name of the structure field and the name of the `hashID` field in your `config.php` file. As soon as you save the page, the structure field entries will be updated with the unique hash.
+
 ## Options
 The following options can be set in your `/site/config/config.php`:
 
