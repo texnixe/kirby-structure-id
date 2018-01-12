@@ -1,6 +1,6 @@
 # Kirby Structure ID Plugin
 
-This plugin automatically hooks into Kirby to add unique hashes to structure field items.
+This plugin automatically hooks into Kirby to add unique hashes to structure field items. It supports multiple structure fields.
 
 
 ## Installation
@@ -15,7 +15,7 @@ Installing via Kirby's [command line interface](https://github.com/getkirby/cli)
 
     $ kirby plugin:install texnixe/kirby-structure-id
 
-To update Logger, run:
+To update the plugin, run:
 
     $ kirby plugin:update texnixe/kirby-structure-id
 
@@ -53,27 +53,41 @@ structurefield:
       type: textarea
 ```
 
-You can set the name of the structure field and the name of the `hashID` field in your `config.php` file. As soon as you save the page, the structure field entries will be updated with the unique hash.
+You can set an array of structure field data and the name of the `hashID` field in your `config.php` file. As soon as you save the page, the structure field entries will be updated with the unique hash.
 
 ## Options
 The following options can be set in your `/site/config/config.php`:
 
+
+
+### structure.id.data
+
+An array of page URIs with an  array of structure field names. You can use the placeholders `(:any)` and `(:all)`.
+
+
 ```php
-c::set('structureid.field.name', 'structurefield');
-c::set('structureid.hashfield.name', 'hash_id');
+
+c::set('structure.id.data', [
+  'home' => ['addresses'],
+  'projects/(:any)' => ['field1', 'field2']
+]);
+
 ```
 
-### structureid.field.name
+### structure.id.hashfield
 
-The name of the structure field.
+```php
+c::set('structure.id.hashfield', 'hash_id');
+```
 
-### structureid.hashfield.name
+The name of the hashID field within the structure field. All blueprints must use the same hash ID field. The field is created if it doesn't exist.
 
-The name of the hashID field within the structure field
+## Changelog
 
-## Limitations
+## v1.2.0
 
-This plugin only works with a single structure field name. This means, you cannot use it with multiple structure fields per page, or with differently named structure fields on multiple pages. It will, however, work on all pages that use the same structure field name.
+- Change naming of config Options
+- Add support for multiple structure fields
 
 ## Credits
 
