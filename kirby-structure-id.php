@@ -3,7 +3,7 @@
  *
  * Structure ID Plugin for Kirby 2
  *
- * @version   1.2.0
+ * @version   1.2.1
  * @author    Sonja Broda <https://www.texniq.de>
  * @copyright Sonja Broda <https://www.texniq.de>
  * @link      https://github.com/texnixe/kirby-structure-id
@@ -29,41 +29,32 @@ class StructureID {
   ** expand the placeholders used in the configuration
   */
   public function expandStructureData() {
-    $array = $this->getStructureData();
-    $configArray = [];
-    $configArray = array_filter ($array, function($value, $key) use ($array){
+    $configData = $this->getStructureData();
+    $expandedData = [];
+    $expandedData = array_filter ($configData, function($value, $key) use ($configData){
       return strpos($key, '(') === false;
     },ARRAY_FILTER_USE_BOTH);
 
+    $placeholderUris = array_diff_key($configData , $expandedData);
 
-    $any = array_filter($array, function($value, $key){
-      return !strpos($key, '(:any)') === false;
-    }, ARRAY_FILTER_USE_BOTH);
-
-    foreach($any as $key => $value) {
-      $uri = explode("/(:any)", $key, 2)[0];
+    foreach($placeholderUris as $key => $value) {
+      $pattern = '!(\/)\(:([a-z]{3})\)!';
+      $matches = preg_split($pattern, $key, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+      $uri = $matches[0];
+      $placeholder = $matches[2];
       if($p = page($uri)) {
-        $children = $p->children();
+        if($placeholder == 'any') {
+          $children = $p->children();
+        } elseif ($placeholder == 'all') {
+            $children = $p->index();
+        }
         foreach($children as $child) {
-          $configArray[$child->uri()] = $value;
+          $expandedData[$child->uri()] = $value;
         }
       }
     }
 
-    $all = array_filter($array, function($value, $key){
-      return !strpos($key, '(:all)') === false;
-    }, ARRAY_FILTER_USE_BOTH);
-
-    foreach($all as $key => $value) {
-      $uri = explode("/(:all)", $key, 2)[0];
-      if($p = page($uri)) {
-        $children = $p->index();
-        foreach($children as $child) {
-          $configArray[$child->uri()] = $value;
-        }
-      }
-    }
-    return $configArray;
+    return $expandedData;
   }
 
   /*

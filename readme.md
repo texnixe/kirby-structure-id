@@ -89,6 +89,9 @@ The name of the hashID field within the structure field. All blueprints must use
 - Change naming of config Options
 - Add support for multiple structure fields
 
+## v1.2.1
+
+- Improve code
 ## Credits
 
 This plugin is inspired by the AutoID plugin:
