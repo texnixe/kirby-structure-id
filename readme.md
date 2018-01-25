@@ -55,14 +55,14 @@ structurefield:
 
 You can set an array of structure field data and the name of the `hashID` field in your `config.php` file. As soon as you save the page, the structure field entries will be updated with the unique hash.
 
-## Options
-Add the following options in your `/site/config/config.php`:
+## Settings
 
+Add the following settings in your `/site/config/config.php`:
 
 
 ### structure.id.data
 
-Required: An array of page URIs with an  array of structure field names. You can use the placeholders `(:any)` and `(:all)`.
+Required: An array of page URIs with an  array of structure field names. You can use the placeholders `(:any)` and `(:all)` after a parent page (not by itself).
 
 
 ```php
