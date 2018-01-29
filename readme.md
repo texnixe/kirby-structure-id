@@ -20,7 +20,7 @@ To update the plugin, run:
     $ kirby plugin:update texnixe/kirby-structure-id
 
 ### Git Submodule
-You can add the Logger plugin as a Git submodule.
+You can add the Structure ID plugin as a Git submodule.
 
     $ cd your/project/root
     $ git submodule add https://github.com/texnixe/kirby-structure-id.git site/plugins/kirby-structure-id
