@@ -3,7 +3,7 @@
   "description": "The Kirby Structure ID plugin adds a unique hash to structure field entries",
   "author": "Sonja Broda <sonja@texniq.de>",
   "license": "MIT",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/texnixe/kirby-structure-id"

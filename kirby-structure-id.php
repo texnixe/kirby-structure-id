@@ -3,7 +3,7 @@
  *
  * Structure ID Plugin for Kirby 2
  *
- * @version   1.2.1
+ * @version   1.2.3
  * @author    Sonja Broda <https://www.texniq.de>
  * @copyright Sonja Broda <https://www.texniq.de>
  * @link      https://github.com/texnixe/kirby-structure-id
@@ -17,8 +17,8 @@ class StructureID {
   protected $structureData;
 
   public function __construct($structureData, $hashID) {
-     $this->structureData = $structureData;
-     $this->hashID = $hashID;
+    $this->structureData = $structureData;
+    $this->hashID = $hashID;
   }
 
   public function getStructureData() {
@@ -38,18 +38,30 @@ class StructureID {
     $placeholderUris = array_diff_key($configData , $expandedData);
 
     foreach($placeholderUris as $key => $value) {
-      $pattern = '!(\/)\(:([a-z]{3})\)!';
-      $matches = preg_split($pattern, $key, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-      $uri = $matches[0];
-      $placeholder = $matches[2];
-      if($p = page($uri)) {
-        if($placeholder == 'any') {
-          $children = $p->children();
-        } elseif ($placeholder == 'all') {
-            $children = $p->index();
-        }
-        foreach($children as $child) {
+
+      if($key == '(:all)') {
+        foreach(kirby()->site()->pages() as $child) {
           $expandedData[$child->uri()] = $value;
+        }
+      } else if($key == '(:any)') {
+        foreach(kirby()->site()->pages() as $child) {
+          $expandedData[$child->uri()] = $value;
+        }
+      } else {
+
+        $pattern = '!(\/)\(:([a-z]{3})\)!';
+        $matches = preg_split($pattern, $key, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $uri = $matches[0];
+        $placeholder = $matches[2];
+        if($p = page($uri)) {
+          if($placeholder == 'any') {
+            $children = $p->children();
+          } elseif ($placeholder == 'all') {
+              $children = $p->index();
+          }
+          foreach($children as $child) {
+            $expandedData[$child->uri()] = $value;
+          }
         }
       }
     }

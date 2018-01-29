@@ -65,7 +65,7 @@ Add the following settings in your `/site/config/config.php`:
 
 ### structure.id.data (required)
 
-An array of page URIs with an  array of structure field names. You can use the placeholders `(:any)` and `(:all)` after a parent page (not by itself).
+An array of page URIs with an  array of structure field names. You can use the placeholders `(:any)` and `(:all)` both for the root level and with page URIs. **Use `(:all)` on root level with caution because this will add your complete site to the array**.
 
 
 ```php
@@ -98,15 +98,19 @@ Use your own hash generator. The option expects a callback function that returns
 
 ## Changelog
 
-## v1.2.2
+### v1.2.3
+
+- Adds `(:any)` and `(:all)` placeholders on root level
+
+### v1.2.2
 
 - Adds option for user defined hash generator
 
-## v1.2.1
+### v1.2.1
 
 - Improve code
 
-## v1.2.0
+### v1.2.0
 
 - Change naming of config Options
 - Add support for multiple structure fields
