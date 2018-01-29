@@ -47,11 +47,14 @@ structurefield:
     hash_id:
       label: ID
       type: text
+      placeholder: Will be filled automatically when the page is saved.  
       readonly: true
     somefield:
       label: Something
       type: textarea
 ```
+
+Instead of a field of type text, you could also use a [`hidden` field](https://getkirby.com/docs/cheatsheet/panel-fields/hidden) if you want to hide this field completely from editors. However, using a text field gives you more control to see if the field works as expected.
 
 You can set an array of structure field data and the name of the `hashID` field in your `config.php` file. As soon as you save the page, the structure field entries will be updated with the unique hash.
 
