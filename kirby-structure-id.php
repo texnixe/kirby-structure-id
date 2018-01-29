@@ -74,6 +74,12 @@ class StructureID {
   */
   public function generateHash() {
     $hashID = md5(microtime().session_id());
+
+    $callback = c::get('structure.id.hashGenerator');
+    if(is_callable($callback)) {
+      $hashID = (string) $callback();
+    }
+
     return $hashID;
   }
 

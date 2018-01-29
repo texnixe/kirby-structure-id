@@ -63,9 +63,9 @@ You can set an array of structure field data and the name of the `hashID` field 
 Add the following settings in your `/site/config/config.php`:
 
 
-### structure.id.data
+### structure.id.data (required)
 
-Required: An array of page URIs with an  array of structure field names. You can use the placeholders `(:any)` and `(:all)` after a parent page (not by itself).
+An array of page URIs with an  array of structure field names. You can use the placeholders `(:any)` and `(:all)` after a parent page (not by itself).
 
 
 ```php
@@ -77,24 +77,40 @@ c::set('structure.id.data', [
 
 ```
 
-### structure.id.hashfield
+### structure.id.hashfield (optional)
 
 ```php
 c::set('structure.id.hashfield', 'hash_id');
 ```
 
-Optional: The name of the hashID field within the structure field. The default field name is `hash_id`. All blueprints must use the same hash ID field. The field is created if it doesn't exist.
+The name of the hashID field within the structure field. The default field name is `hash_id`. All blueprints must use the same hash ID field. The field is created if it doesn't exist.
+
+### structure.id.hashGenerator (optional)
+
+```php
+c::set('structure.id.hashGenerator', function() {
+  return myHashGenerator();
+});
+```
+
+Use your own hash generator. The option expects a callback function that returns your own unique hash.
+
 
 ## Changelog
+
+## v1.2.2
+
+- Adds option for user defined hash generator
+
+## v1.2.1
+
+- Improve code
 
 ## v1.2.0
 
 - Change naming of config Options
 - Add support for multiple structure fields
 
-## v1.2.1
-
-- Improve code
 ## Credits
 
 This plugin is inspired by the AutoID plugin:
